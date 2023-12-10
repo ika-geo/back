@@ -1,0 +1,1818 @@
+openapi: 3.0.0
+info:
+  title: Invoice backend
+  description:  Invoice API docs
+  version: 1.0.0
+paths:
+  /candidate:
+    post:
+      tags:
+      - "candidate"
+      description: "Create candidates"
+      requestBody:
+       description: Schema of candidate
+       required: true
+       content:
+        application/json:
+         schema:
+          $ref: '#/components/schemas/Candidate'
+      responses:
+        "201":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 201
+                 message:
+                   type: "string"
+                   example: request successful candidate created succesfully
+        "400":
+          description: Bad Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: Please enter ____
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+                        
+    get:
+      tags:
+      - "candidate"
+      description: "Get All Candidates"
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: request successful 
+               data:
+                type: "array"
+                items:
+                 type: "object"
+                 properties:
+                  _id:
+                   type: "string"
+                   example: 61f9446265ade063b02174c8
+                  username:
+                   type: "string"
+                   example: "Harshith"
+                  email:
+                   type: "string"
+                   example: "example.p@gmail.com"
+                  date_of_birth:
+                   type: "string"
+                   example: "2/1/1998"
+                  assigned_to:
+                   type: "string"
+                   example: "details"
+                  date_of_Joining:
+                   type: "string"
+                   example: "1/7/2021"
+                  payment_terms:
+                   type: "string"
+                   example: "Terms"
+                  role:
+                   type: "string"
+                   example: "Candidate"
+                  isActive:
+                   type: "boolean"
+                   example: true
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: No candidates 
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+          
+  /candidate/{candidate_id}:
+    put:
+      tags:
+      - "candidate"
+      description: "Updates a Candidate"
+      parameters:
+      - name: candidate_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      requestBody:
+       description: Schema of PUT Request
+       required: true
+       content:
+        application/json:
+         schema:
+          $ref: '#/components/schemas/Candidate'
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 204
+                 message:
+                   type: "string"
+                   example: request successful candidate updated successfully
+        "400":
+          description: Bad request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: Please enter ____
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: candidate not found
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+    get:
+      tags:
+      - "candidate"
+      description: "Get Candidate by Id"
+      parameters:
+      - name: candidate_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: request successful
+               data:
+                type: "object"
+                properties:
+                  _id:
+                   type: "string"
+                   example: 61f9446265ade063b02174c8
+                  username:
+                   type: "string"
+                   example: "Harshith"
+                  email:
+                   type: "string"
+                   example: "example.p@gmail.com"
+                  date_of_birth:
+                   type: "string"
+                   example: "2/1/1998"
+                  assigned_to:
+                   type: "string"
+                   example: "details"
+                  date_of_Joining:
+                   type: "string"
+                   example: "1/7/2021"
+                  payment_terms:
+                   type: "string"
+                   example: "Terms"
+                  role:
+                   type: "string"
+                   example: "Candidate"
+                  isActive:
+                   type: "boolean"
+                   example: true
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: candidate not found  
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message   
+          
+    delete:
+      tags:
+      - "candidate"
+      description: "Delete Candidate"
+      parameters:
+      - name: candidate_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 204
+                 message:
+                   type: "string"
+                   example: request successful candidate deleted successfully
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: candidate not found
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+  /admin:
+    post:
+      tags:
+      - "admin"
+      description: "Admin login"
+      requestBody:
+       description: Schema of admin login
+       required: true
+       content:
+        application/json:
+         schema:
+          type: "object"
+          properties:
+           username:
+            type: "string"
+            example: admin
+           password:
+            type: "string"
+            example: Codeunity@1   
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: authorization Succesful
+        "401":
+          description: Unauthorized request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 401
+                 message:
+                   type: "string"
+                   example: authorization failed, enter valid username or password
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+  /admin/address:                      
+    get:
+      tags:
+      - "admin"
+      description: "Gets Admin's Address"
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: request successful 
+               address:
+                type: "string"
+                example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                Nagin street, Sehari, Guntur Dt, AP, 524560
+                8130657523
+                example@gmail.com
+                PAN: ADIBC9018B
+                GSTIN: 37AAIBB8121B1Z1"
+                
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+  
+  /invoice:
+    post:
+      tags:
+      - "invoice"
+      description: "Create invoices"
+      requestBody:
+       description: Schema of invoice
+       required: true
+       content:
+        application/json:
+         schema:
+          $ref: '#/components/schemas/Invoice'
+      responses:
+        "201":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 201
+                 message:
+                   type: "string"
+                   example: request successful invoice created succesfully
+               pdf: 
+                type: "string"
+               data:
+                type: "object"
+                properties:
+                 _id:
+                  type: "string"
+                  example: "61efaca536255b2a0421b837"
+                 client:
+                  type: "string"
+                  example: "treniq"
+                 invoice_number:
+                  type: "string"
+                  example: "61efaca536255b2a0421b838"
+                 bill_from:
+                  type: "string"
+                  example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                  Nagin street, Sehari, Guntur Dt, AP, 524560
+                  8130657523
+                  example@gmail.com
+                  PAN: ADIBC9018B
+                  GSTIN: 37AAIBB8121B1Z1"
+                 bill_to:
+                  type: "string"
+                  example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                  Nagin street, Sehari, Guntur Dt, AP, 524560
+                  8130657523
+                  example@gmail.com
+                  PAN: ADIBC9018B
+                  GSTIN: 37AAIBB8121B1Z1"
+                 ship_to:
+                  type: "string"
+                  example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                  Nagin street, Sehari, Guntur Dt, AP, 524560
+                  8130657523
+                  example@gmail.com
+                  PAN: ADIBC9018B
+                  GSTIN: 37AAIBB8121B1Z1"
+                 payment_terms:
+                  type: "string"
+                  example: "payment terms"
+                 date:
+                  type: "string"
+                  example: "1/7/2021"
+                 due_date:
+                  type: "string"
+                  example: "1/7/2021"
+                 items:
+                  type: array
+                  items:
+                   type: object
+                   properties:
+                    item:
+                     type: "string"
+                     example: "item"
+                    quantity:
+                     type: "string"
+                     example: "20"
+                    rate:
+                     type: "string"
+                     example: "₹30"
+                    amount:
+                     type: "string"
+                     example: "₹600"
+                 sub_total:
+                  type: "string"
+                  example: "₹600"
+                 tax:
+                  type: "string"
+                  example: "10%"
+                 total:
+                  type: "string"
+                  example: "₹600"
+                 discount:
+                  type: "string"
+                  example: "10%"
+                 amount_paid:
+                  type: "string"
+                  example: "₹100"
+                 balance_due:
+                  type: "string"
+                  example: "₹500"
+                 notes:
+                  type: "string"
+                  example: "10%"
+                 terms:
+                  type: "string"
+                  example: "terms" 
+                 __v:
+                  type: "number"
+                  example: 0
+                
+        "400":
+          description: Bad request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: Please enter ____
+      
+                        
+    get:
+      tags:
+      - "invoice"
+      description: "Get All invoices"
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: request successful 
+               data:
+                type: "object"
+                properties:
+                 results:
+                  type: "array"
+                  items:
+                   type: "object"
+                   properties:
+                    _id:
+                     type: "string"
+                     example: "61efaca536255b2a0421b837"
+                    client:
+                     type: "string"
+                     example: "treniq"
+                    invoice_number:
+                     type: "string"
+                     example: "61efaca536255b2a0421b838"
+                    bill_from:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    bill_to:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    ship_to:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    payment_terms:
+                     type: "string"
+                     example: "payment terms"
+                    date:
+                     type: "string"
+                     example: "1/7/2021"
+                    due_date:
+                     type: "string"
+                     example: "1/7/2021"
+                    items:
+                     type: array
+                     items:
+                      type: object
+                      properties:
+                       item:
+                        type: "string"
+                        example: "item"
+                       quantity:
+                        type: "string"
+                        example: "20"
+                       rate:
+                        type: "string"
+                        example: "₹30"
+                       amount:
+                        type: "string"
+                        example: "₹600"
+                    sub_total:
+                     type: "string"
+                     example: "₹600"
+                    tax:
+                     type: "string"
+                     example: "10%"
+                    total:
+                     type: "string"
+                     example: "₹600"
+                    discount:
+                     type: "string"
+                     example: "10%"
+                    amount_paid:
+                     type: "string"
+                     example: "₹100"
+                    balance_due:
+                     type: "string"
+                     example: "₹500"
+                    notes:
+                     type: "string"
+                     example: "10%"
+                    terms:
+                     type: "string"
+                     example: "terms"        
+                
+        "400":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: not found
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+          
+  /invoice/{invoice_id}:
+    get:
+      tags:
+      - "invoice"
+      description: "Get invoice by Id"
+      parameters:
+      - name: invoice_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: request successful
+               data:
+                type: "object"
+                properties:
+                    _id:
+                     type: "string"
+                     example: "61efaca536255b2a0421b837"
+                    client:
+                     type: "string"
+                     example: "treniq"
+                    invoice_number:
+                     type: "string"
+                     example: "61efaca536255b2a0421b838"
+                    bill_from:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    bill_to:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    ship_to:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    payment_terms:
+                     type: "string"
+                     example: "payment terms"
+                    date:
+                     type: "string"
+                     example: "1/7/2021"
+                    due_date:
+                     type: "string"
+                     example: "1/7/2021"
+                    items:
+                     type: array
+                     items:
+                      type: object
+                      properties:
+                       item:
+                        type: "string"
+                        example: "item"
+                       quantity:
+                        type: "string"
+                        example: "20"
+                       rate:
+                        type: "string"
+                        example: "₹30"
+                    amount:
+                     type: "string"
+                     example: "₹600"
+                    sub_total:
+                     type: "string"
+                     example: "₹600"
+                    tax:
+                     type: "string"
+                     example: "10%"
+                    total:
+                     type: "string"
+                     example: "₹600"
+                    discount:
+                     type: "string"
+                     example: "10%"
+                    amount_paid:
+                     type: "string"
+                     example: "₹100"
+                    balance_due:
+                     type: "string"
+                     example: "₹500"
+                    notes:
+                     type: "string"
+                     example: "10%"
+                    terms:
+                     type: "string"
+                     example: "terms"  
+                
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: invoice not found         
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message  
+          
+    delete:
+      tags:
+      - "invoice"
+      description: "Delete Invoice"
+      parameters:
+      - name: invoice_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 204
+                 message:
+                   type: "string"
+                   example: request successful invoice deleted successfully
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: invoice not found  
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+   
+  /client:
+    post:
+      tags:
+      - "client"
+      description: "Create clients"
+      requestBody:
+       description: Schema of client
+       required: true
+       content:
+        application/json:
+         schema:
+          $ref: '#/components/schemas/Client'
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 201
+                 message:
+                   type: "string"
+                   example: request successful client created succesfully
+               data:
+                type: "object"
+                properties:
+                    _id: 
+                     type: "string"
+                     example: "6200a70e9fec2c68f0cdc6de"
+                    client_name:
+                     type: "string"
+                     example: "Harshith"
+                    billing_address:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    shipping_address:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    date_of_contract:
+                     type: "string"
+                     example: "1/7/2021"
+                    payment_terms:
+                     type: "string"
+                     example: "payment terms"
+                    notes:
+                     type: "string"
+                     example: "Notes"
+                    terms:
+                     type: "string"
+                     example: "Terms"
+                    __v:
+                     type: "number"
+                     example: 0
+                    
+        "400":
+          description: Bad request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: Please enter _____       
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+                        
+    get:
+      tags:
+      - "client"
+      description: "Get All Clients"
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: request successful 
+               data:
+                type: "object"
+                properties:
+                 results :
+                  type: "array"
+                  items:
+                   type: "object"
+                   properties:
+                    _id: 
+                      type: "string"
+                      example: "6200a70e9fec2c68f0cdc6de"
+                    client_name:
+                     type: "string"
+                     example: "Harshith"
+                    billing_address:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    shipping_address:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    date_of_contract:
+                     type: "string"
+                     example: "1/7/2021"
+                    payment_terms:
+                     type: "string"
+                     example: "payment terms"
+                    notes:
+                     type: "string"
+                     example: "Terms"
+                    terms:
+                     type: "string"
+                     example: "Terms"
+                    __v:
+                     type: "number"
+                     example: 0
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: not found
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+          
+  /client/{client_id}:
+    patch:
+      tags:
+      - "client"
+      description: "Updates a Client"
+      parameters:
+      - name: client_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      requestBody:
+       description: Schema of PATCH Request
+       required: true
+       content:
+        application/json:
+         schema:
+          $ref: '#/components/schemas/Client'
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 204
+                 message:
+                   type: "string"
+                   example: request successful client updated successfully
+               data:
+                type: "object"
+                properties:
+                 _id: 
+                  type: "string"
+                  example: "6200a70e9fec2c68f0cdc6de"
+                 client_name:
+                  type: "string"
+                  example: "Harshith"
+                 billing_address:
+                  type: "string"
+                  example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                  Nagin street, Sehari, Guntur Dt, AP, 524560
+                  8130657523
+                  example@gmail.com
+                  PAN: ADIBC9018B
+                  GSTIN: 37AAIBB8121B1Z1"
+                 shipping_address:
+                  type: "string"
+                  example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                  Nagin street, Sehari, Guntur Dt, AP, 524560
+                  8130657523
+                  example@gmail.com
+                  PAN: ADIBC9018B
+                  GSTIN: 37AAIBB8121B1Z1"
+                 date_of_contract:
+                  type: "string"
+                  example: "1/7/2021"
+                 payment_terms:
+                  type: "string"
+                  example: "payment terms"
+                 notes:
+                  type: "string"
+                  example: "Notes"
+                 terms:
+                  type: "string"
+                  example: "Terms"
+                 __v:
+                  type: "number"
+                  example: 0
+        "400":
+          description: Bad request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 400
+                 message:
+                   type: "string"
+                   example: Please enter ____
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: client not found
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message
+    get:
+      tags:
+      - "client"
+      description: "Get Client by id"
+      parameters:
+      - name: client_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 200
+                 message:
+                   type: "string"
+                   example: request successful
+               data:
+                type: "object"
+                properties:
+                    _id: 
+                     type: "string"
+                     example: "6200a70e9fec2c68f0cdc6de"
+                    client_name:
+                     type: "string"
+                     example: "Harshith"
+                    billing_address:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    shipping_address:
+                     type: "string"
+                     example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+                     Nagin street, Sehari, Guntur Dt, AP, 524560
+                     8130657523
+                     example@gmail.com
+                     PAN: ADIBC9018B
+                     GSTIN: 37AAIBB8121B1Z1"
+                    date_of_contract:
+                     type: "string"
+                     example: "1/7/2021"
+                    payment_terms:
+                     type: "string"
+                     example: "payment terms"
+                    notes:
+                     type: "string"
+                     example: "Notes"
+                    terms:
+                     type: "string"
+                     example: "Terms"
+                    __v:
+                     type: "number"
+                     example: 0
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: client not found       
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message  
+          
+    delete:
+      tags:
+      - "client"
+      description: "Delete Client"
+      parameters:
+      - name: client_id
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success Request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: true
+                 code:
+                  type: "integer"
+                  example: 204
+                 message:
+                   type: "string"
+                   example: request successful client deleted successfully
+        "404":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 404
+                 message:
+                   type: "string"
+                   example: client not found 
+        "500":
+          description: Failed request
+          content:
+           application/json:
+            schema:
+              type: "object"
+              properties:
+               status:
+                type: "object"
+                properties:
+                 success:
+                  type: "boolean"
+                  example: false
+                 code:
+                  type: "integer"
+                  example: 500
+                 message:
+                   type: "string"
+                   example: error message       
+components:
+  schemas:
+    Candidate:
+     type: "object"
+     required:
+     - "name"
+     - "email"
+     - "date_of_birth"
+     - "assigned_to"
+     - "date_of_Joining"
+     - "payment_terms"
+     properties:
+      name:
+        type: "string"
+        example: "Harshith"
+      email:
+        type: "string"
+        example: "example.p@gmail.com"
+      date_of_birth:
+        type: "string"
+        example: "2/1/1998"
+      assigned_to:
+        type: "string"
+        example: "details"
+      date_of_Joining:
+        type: "string"
+        example: "1/7/2021"
+      payment_terms:
+        type: "string"
+        example: "Terms"
+    Admin:
+     type: "object"
+     required:
+     - "username"
+     - "email"
+     - "password"
+     - "phone_number"
+     - "address"
+     properties:
+      username:
+        type: "string"
+        example: "admin"
+      email:
+        type: "string"
+        example: "admin@codeunity.co"
+      password:
+        type: "string"
+        example: "password"
+      phone_number:
+        type: "string"
+        example: "9951207401"
+      address:
+        type: "string"
+        example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+        Nagin street, Sehari, Guntur Dt, AP, 524560
+        8130657523
+        example@gmail.com
+        PAN: ADIBC9018B
+        GSTIN: 37AAIBB8121B1Z1"
+    Client:
+     type: "object"
+     required:
+     - "client_name"
+     - "billing_address"
+     - "date_of_contract"
+     - "payment_terms"
+     properties:
+      client_name:
+        type: "string"
+        example: "Harshith"
+      billing_address:
+        type: "string"
+        example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+        Nagin street, Sehari, Guntur Dt, AP, 524560
+        8130657523
+        example@gmail.com
+        PAN: ADIBC9018B
+        GSTIN: 37AAIBB8121B1Z1"
+      shipping_address:
+        type: "string"
+        example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+        Nagin street, Sehari, Guntur Dt, AP, 524560
+        8130657523
+        example@gmail.com
+        PAN: ADIBC9018B
+        GSTIN: 37AAIBB8121B1Z1"
+      date_of_contract:
+        type: "string"
+        example: "1/7/2021"
+      payment_terms:
+        type: "string"
+        example: "payment terms"
+      notes:
+        type: "string"
+        example: "Terms"
+      terms:
+        type: "string"
+        example: "Terms"
+    Invoice:
+     type: "object"
+     required:
+     - "client"
+     - "invoice_number"
+     - "bill_from"
+     - "bill_to"
+     - "payment_terms"
+     - "date"
+     - "due_date"
+     - "items"
+     - "sub_total"
+     - "total"
+     - "amount_paid"
+     - "balance_due"
+     properties:
+      client:
+        type: "string"
+        example: "treniq"
+      invoice_number:
+        type: "string"
+        example: "61efaca536255b2a0421b838"
+      bill_from:
+        type: "string"
+        example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+        Nagin street, Sehari, Guntur Dt, AP, 524560
+        8130657523
+        example@gmail.com
+        PAN: ADIBC9018B
+        GSTIN: 37AAIBB8121B1Z1"
+      bill_to:
+        type: "string"
+        example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+        Nagin street, Sehari, Guntur Dt, AP, 524560
+        8130657523
+        example@gmail.com
+        PAN: ADIBC9018B
+        GSTIN: 37AAIBB8121B1Z1"
+      ship_to:
+        type: "string"
+        example: "CODEUNITY TECHNOLOGIES PVT LTD 1/42,
+        Nagin street, Sehari, Guntur Dt, AP, 524560
+        8130657523
+        example@gmail.com
+        PAN: ADIBC9018B
+        GSTIN: 37AAIBB8121B1Z1"
+      payment_terms:
+        type: "string"
+        example: "payment terms"
+      date:
+        type: "string"
+        example: "1/7/2021"
+      due_date:
+        type: "string"
+        example: "1/7/2021"
+      items:
+        type: array
+        items:
+         type: object
+         properties:
+          item:
+           type: "string"
+           example: "item"
+          quantity:
+           type: "string"
+           example: "20"
+          rate:
+           type: "string"
+           example: "₹30"
+          amount:
+           type: "string"
+           example: "₹600"
+      sub_total:
+           type: "string"
+           example: "₹600"
+      tax:
+           type: "string"
+           example: "10%"
+      total:
+           type: "string"
+           example: "₹600"
+      discount:
+           type: "string"
+           example: "10%"
+      amount_paid:
+           type: "string"
+           example: "₹100"
+      balance_due:
+           type: "string"
+           example: "₹500"
+      notes:
+           type: "string"
+           example: "10%"
+      terms:
+           type: "string"
+           example: "terms"
+     

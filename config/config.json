@@ -1,0 +1,6 @@
+{
+  "MONGO_ATLAS_PW": "",
+  "MONGO_ATLAS_USER": "",
+  "MONGO_URL": "mongodb+srv://codeunity:raJciE6NLDM16BGc@cluster0.19julq7.mongodb.net/",
+  "ADMIN_JWT_KEY": "1234"
+}

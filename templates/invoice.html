@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice page</title>
+    <style>
+        body {
+            background-color: #F6F6F6;
+            margin: 5%;
+            font-family: Helvetica;
+            font-size: 15px;
+            height: 100%;
+        }
+
+        h6 {
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+            font-weight: 100;
+        }
+
+        h6::first-line {
+            font-weight: 600;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 200px;
+        }
+
+        .container {
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            font-size: 14px;
+        }
+
+        .brand-section {
+            padding: 10px 10px 10px 15px;
+        }
+
+        .logo {
+            width: 50%;
+        }
+
+        .body-section {
+            padding: 16px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .first {
+            width: 50%;
+            display: flex;
+        }
+
+        .row1 {
+            display: flex;
+            flex-wrap: wrap;
+            padding-bottom: 10px
+        }
+
+        .col-2 {
+            width: 50%;
+            text-align: left;
+        }
+
+        .col-4 {
+            width: 50%;
+            text-align: right;
+        }
+
+        .col-7 {
+            width: 50%;
+            text-align: right;
+            margin-left: 46%;
+            margin-top: 25px;
+        }
+
+        .data {
+            width: 45%;
+            margin-left: 5%;
+        }
+
+        .bdue {
+            width: 50%;
+        }
+
+        .col-6 {
+            width: 50%;
+            text-align: left;
+        }
+
+        .col {
+            width: 35%;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .col-5 {
+            width: 35%;
+            margin-right: 15%;
+            text-align: left;
+            margin-top: 5px;
+        }
+
+        .col-8 {
+            text-align: left;
+            margin-top: 5px;
+
+        }
+
+        .company-details {
+            float: right;
+            text-align: right;
+        }
+
+        .heading {
+            font-size: 20px;
+            margin-bottom: 08px;
+        }
+
+        .sub-heading {
+            font-weight: lighter;
+            color: grey;
+        }
+
+        .sub-heading3 {
+            font-weight: lighter;
+            width: 50%;
+            color: grey
+        }
+
+        .bold {
+            white-space: pre-wrap;
+            margin-bottom: 05px;
+        }
+
+        .sub-heading2 {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 05px;
+            background-color: #e4e2e2;
+            font-weight: bolder;
+            padding: 10px;
+        }
+
+        table {
+            background-color: #f6f6f6;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+
+        table th,
+        table td {
+            padding-top: 08px;
+            padding-bottom: 08px;
+        }
+
+        .text-white {
+            font-size: 30px;
+            margin-top: 50px;
+        }
+
+        .text-right {
+            text-align: end;
+            color: 'grey';
+        }
+
+        .w-10 {
+            width: 10%;
+            background-color: rgb(82, 86, 89);
+            color: white;
+        }
+
+        .w-40 {
+            width: 40%;
+            text-align: left;
+            background-color: rgb(82, 86, 89);
+            color: white;
+            padding-left: 10px;
+        }
+
+        .p-40 {
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .float-right {
+            float: right;
+        }
+
+        .text-black {
+            white-space: pre-wrap;
+            padding-top: 15px
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="brand-section">
+            <div class="row">
+                <div class="col-6">
+                    <img src="{{image}}"/>
+                    <h6 class="text-black">{{bill_from}}</h6>
+                </div>
+                <div class="col-2">
+                    <div class="company-details">
+                        <p class="text-white">INVOICE</p>
+                        <p class="sub-heading">#{{invoice_number}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="body-section">
+            <div class="row">
+                {{#if ship_to}}
+                <div class="first">
+                    <div class="col-5">
+                        <p class="sub-heading">Bill To:</p>
+                        <p class="bold">{{bill_to}}</p>
+                    </div>
+                    <div class="col-5">
+                        <p class="sub-heading">Ship To: </p>
+                        <p class="bold">{{ship_to}}</p>
+                    </div>
+                </div>
+                {{/if}}
+                {{#unless ship_to}}
+                <div class="first">
+                    <div class="col-8">
+                        <p class="sub-heading">Bill To:</p>
+                        <h6 class="bold">{{bill_to}}</h6>
+                    </div>
+                </div>
+                {{/unless}}
+                <div class="col-4">
+
+                    <div class="row1">
+                        <p class="sub-heading3">Date:</p>
+                        <p class="data"> {{date}}</p>
+                    </div>
+                    <div class="row1">
+                        <p class="sub-heading3">Payment Terms: </p>
+                        <p class="data"> {{payment_terms}}</p>
+                    </div>
+                    <div class="row1">
+                        <p class="sub-heading3">Due Date: </p>
+                        <p class="data">{{due_date}}</p>
+                    </div>
+                    <div class="sub-heading2">
+                        <p class="bdue">Balance Due: </p>
+                        <p class="data">{{currency}}{{balance_due}}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="body-section">
+            <br>
+            <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th class="w-40">Item</th>
+                        <th class="w-10">Quantity</th>
+                        <th class="w-10">Rate ({{currency}}) </th>
+                        <th class="w-10">Amount ({{currency}}) </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each items}}
+                    <tr>
+                        <td class="p-40">{{item}}</td>
+                        <td>{{quantity}}</td>
+                        <td>{{rate}}</td>
+                        <td>{{amount}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div class="col-7">
+                <div class="row1">
+                    <p class="sub-heading3">Sub Total:</p>
+                    <p class="data">{{currency}}{{sub_total}}</p>
+                </div>
+
+                <div class="row1">
+                    <p class="sub-heading3">GST:</p>
+                    {{#areEqual tax_type "flat"}}
+                    <p class="data">{{currency}}{{tax}}</p>
+                    {{else}}
+                    <p class="data">{{tax}}{{tax_type}}</p>
+                    {{/areEqual}}
+                </div>
+
+
+                <div class="row1">
+                    <p class="sub-heading3">Discount:</p>
+                    {{#areEqual discount_type "flat"}}
+                    <p class="data">{{currency}}{{discount}}</p>
+                    {{else}}
+                    <p class="data">{{discount}}{{discount_type}}</p>
+                    {{/areEqual}}
+                </div>
+
+                <div class="row1">
+                    <p class="sub-heading3">Total:</p>
+                    <p class="data">{{currency}}{{total}}</p>
+                </div>
+                <div class="row1">
+                    <p class="sub-heading3">Amount Paid:</p>
+                    <p class="data">{{currency}}{{amount_paid}}</p>
+                </div>
+            </div>
+            <div class="col">
+                <p class="sub-heading">Notes:</p>
+                <p class="bold">{{notes}}</p>
+            </div>
+            <div class="col">
+                <p class="sub-heading">Terms:</p>
+                <p class="bold">{{terms}}</p>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

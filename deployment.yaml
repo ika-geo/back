@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invoice-backend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: invoice-backend
+  template:
+    metadata:
+      labels:
+        app: invoice-backend
+    spec:
+      containers:
+      - name: invoice-backend
+        image: yashwanthkoneri/invoice-backend:latest
+        ports:
+        - containerPort: 3001
