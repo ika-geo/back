@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
+
 //Dependencies Imported :
 var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
 var path = require("path");
 var fs = require("fs");
-// var puppeteer = require("puppeteer");
-import { jsPDF } from "jspdf";
+var puppeteer = require("puppeteer");
 var handlebars = require("handlebars");
 const { validationResult } = require("express-validator");
 var invoiceFilter = require("./invoiceFilter");
@@ -453,43 +453,40 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     var template = handlebars.compile(templateHtml);
     var finalHtml = encodeURIComponent(template(invoice_data));
 
-    
+
+
+
+
+    //Format of our pdf :
+    var options = {
+      format: "A4",
+      printBackground: true,
+    };
+    let browser = null;
+    console.log(1);
+    // Launching Browser
+
+    console.log(2);
+    browser = await puppeteer.launch({
+      args: ["--no-sandbox"],
+      headless: true,
+    });
+    console.log(3);
+    const page = await browser.newPage();
+    console.log(4);
+    // Navigate to the HTML content
+    await page.goto(`data:text/html;charset=UTF-8,${finalHtml}`, {
+      waitUntil: "networkidle0",
+    });
+    console.log(5);
+    // Create PDF with specified options
+    const pdf = await page.pdf(options);
+    console.log(6);
     //Converting buffer type to base64 format :
     const base64 = Buffer.from(pdf).toString("base64");
-
-
-    // //Format of our pdf :
-    // var options = {
-    //   format: "A4",
-    //   printBackground: true,
-    // };
-    // let browser = null;
-    // console.log(1);
-    // // Launching Browser
-    // const executablePath = await chromium.executablePath;
-    // console.log(2);
-    // browser = await chromium.puppeteer.launch({
-    //   args: chromium.args,
-    //   defaultViewport: chromium.defaultViewport,
-    //   executablePath,
-    //   headless: chromium.headless,
-    // });
-    // console.log(3);
-    // const page = await browser.newPage();
-    // console.log(4);
-    // // Navigate to the HTML content
-    // await page.goto(`data:text/html;charset=UTF-8,${finalHtml}`, {
-    //   waitUntil: "networkidle0",
-    // });
-    // console.log(5);
-    // // Create PDF with specified options
-    // const pdf = await page.pdf(options);
-    // console.log(6);
-    // //Converting buffer type to base64 format :
-    // const base64 = Buffer.from(pdf).toString("base64");
-    // // Closing Browser
-    // await browser.close();
-    // console.log(7);
+    // Closing Browser
+    await browser.close();
+    console.log(7);
 
     //Response :
     res.status(201).send({
