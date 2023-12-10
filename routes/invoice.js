@@ -478,6 +478,7 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     await page.goto(`data:text/html;charset=UTF-8,${finalHtml}`, {
       waitUntil: "networkidle0",
     });
+    
     console.log(5);
     // Create PDF with specified options
     const pdf = await page.pdf(options);
