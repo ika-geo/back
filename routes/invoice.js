@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
 var path = require("path");
 var fs = require("fs");
 // var puppeteer = require("puppeteer");
-const pdf = require('html-pdf');
+import { jsPDF } from "jspdf";
 var handlebars = require("handlebars");
 const { validationResult } = require("express-validator");
 var invoiceFilter = require("./invoiceFilter");
@@ -454,27 +454,12 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     var finalHtml = encodeURIComponent(template(invoice_data));
 
 
-    const options = {
-      format: "A4",
-      border: {
-        top: "0.5in",
-        right: "0.5in",
-        bottom: "0.5in",
-        left: "0.5in",
-      },
-    };
+    const doc = new jsPDF();
+    doc.text(finalHtml, 10, 10);
+    const pdf = doc.save("a4.pdf");
 
-    const base64 = await new Promise((resolve, reject) => {
-      pdf.create(finalHtml, options).toBuffer((err, buffer) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(buffer);
-        }
-      });
-    });
-
-
+    //Converting buffer type to base64 format :
+    const base64 = Buffer.from(pdf).toString("base64");
 
 
     // //Format of our pdf :
