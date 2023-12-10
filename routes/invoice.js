@@ -453,11 +453,7 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     var template = handlebars.compile(templateHtml);
     var finalHtml = encodeURIComponent(template(invoice_data));
 
-
-    const doc = new jsPDF();
-    doc.text(finalHtml, 10, 10);
-    const pdf = doc.save("a4.pdf");
-
+    
     //Converting buffer type to base64 format :
     const base64 = Buffer.from(pdf).toString("base64");
 
