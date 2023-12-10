@@ -30,12 +30,7 @@
     "node-cron": "^3.0.1",
     "nodemailer": "^4.7.0",
     "pug": "2.0.0-beta11",
-<<<<<<< HEAD
     "puppeteer": "^21.6.0"
-=======
-    "puppeteer": "^21.6.0",
-    "puppeteer-chromium-resolver": "^21.0.0"
->>>>>>> 057a6e2b7206abd5235839f5651303e27b83b9c9
   },
   "devDependencies": {
     "eslint": "^7.30.0",

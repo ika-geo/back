@@ -7,13 +7,8 @@ var router = express.Router();
 var mongoose = require("mongoose");
 var path = require("path");
 var fs = require("fs");
-<<<<<<< HEAD
 // var puppeteer = require("puppeteer");
 const pdf = require('html-pdf');
-=======
-var puppeteer = require("puppeteer");
-const PCR = require("puppeteer-chromium-resolver");
->>>>>>> 057a6e2b7206abd5235839f5651303e27b83b9c9
 var handlebars = require("handlebars");
 const { validationResult } = require("express-validator");
 var invoiceFilter = require("./invoiceFilter");
@@ -458,7 +453,6 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     var template = handlebars.compile(templateHtml);
     var finalHtml = encodeURIComponent(template(invoice_data));
 
-<<<<<<< HEAD
 
     const options = {
       format: "A4",
@@ -488,17 +482,6 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     //   format: "A4",
     //   printBackground: true,
     // };
-=======
-    //Format of our pdf :
-    var options = {
-      format: "A4",
-      printBackground: true,
-    };
-
-
-
-
->>>>>>> 057a6e2b7206abd5235839f5651303e27b83b9c9
     // let browser = null;
     // console.log(1);
     // // Launching Browser
@@ -527,41 +510,6 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     // await browser.close();
     // console.log(7);
 
-<<<<<<< HEAD
-=======
-
-
-    const stats = await PCR(options);
-
-    let browser;
-    console.log("0");
-    //Launching Browser :
-    browser = await puppeteer.launch();
-
-    console.log(1);
-
-    const page = await browser.newPage();
-    console.log(2);
-
-    //Launching our HTML page in browser :
-    await page.goto(`data:text/html;charset=UTF-8,${finalHtml}`, {
-      waitUntil: "networkidle0",
-    });
-    console.log(3);
-
-    //Creating PDF with our format :
-    const pdf = await page.pdf(options);
-    console.log(4);
-
-    //Converting buffer type to base64 format :
-    const base64 = Buffer.from(pdf).toString("base64");
-    console.log(5);
-
-    //Closing Browser :
-    await browser.close();
-    console.log(6);
-
->>>>>>> 057a6e2b7206abd5235839f5651303e27b83b9c9
     //Response :
     res.status(201).send({
       status: {
