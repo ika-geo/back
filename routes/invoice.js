@@ -8,7 +8,8 @@ var router = express.Router();
 var mongoose = require("mongoose");
 var path = require("path");
 var fs = require("fs");
-var puppeteer = require("puppeteer-core");
+var puppeteer = require("puppeteer");
+var puppeteerCore = require("puppeteer-core");
 const chromium = require("chrome-aws-lambda");
 var handlebars = require("handlebars");
 const { validationResult } = require("express-validator");
@@ -469,10 +470,15 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
 
     console.log(2);
     browser = await puppeteer.launch({
-      args: chromium.args,
-      executablePath: await chromium.executablePath,
-      headless: false, // Change to true for headless mode in production
+      args: ["--no-sandbox"],
+      headless: true,
     });
+
+    // browser = await puppeteerCore.launch({
+    //   args: chromium.args,
+    //   executablePath: await chromium.executablePath,
+    //   headless: false
+    // });
     console.log(3);
     const page = await browser.newPage();
     console.log(4);
