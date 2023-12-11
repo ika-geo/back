@@ -483,7 +483,7 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     //   ignoreHTTPSErrors: true,
     // })
 
-    browser = await playwright.launch({
+    browser = await playwright.chromium.launch({
       args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
