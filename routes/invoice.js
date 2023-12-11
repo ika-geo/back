@@ -469,16 +469,16 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     // Launching Browser
 
     console.log(2);
-    browser = await puppeteer.launch({
-      args: ["--no-sandbox"],
-      headless: true,
-    });
-
-    // browser = await puppeteerCore.launch({
-    //   args: chromium.args,
-    //   executablePath: await chromium.executablePath,
-    //   headless: false
+    // browser = await puppeteer.launch({
+    //   args: ["--no-sandbox"],
+    //   headless: true,
     // });
+
+    browser = await puppeteerCore.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath,
+      headless: true
+    });
     console.log(3);
     const page = await browser.newPage();
     console.log(4);
