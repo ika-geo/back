@@ -474,23 +474,14 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     //   headless: true,
     // });
 
-    // browser = await chromium.puppeteer.launch({
-    //   args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-    //   defaultViewport: chromium.defaultViewport,
-    //   executablePath: await chromium.executablePath,
-    //   headless: false,
-    //   ignoreHTTPSErrors: true,
-    // })
-
-    browser = await puppeteerCore.launch({
-      args: [],
-      executablePath:
-          process.platform === 'win32'
-              ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
-              : process.platform === 'linux'
-                  ? '/usr/bin/google-chrome'
-                  : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    browser = await chromium.puppeteer.launch({
+      args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: false,
+      ignoreHTTPSErrors: true,
     })
+
 
 
     console.log(3);
