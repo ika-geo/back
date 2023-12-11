@@ -8,7 +8,8 @@ var router = express.Router();
 var mongoose = require("mongoose");
 var path = require("path");
 var fs = require("fs");
-var puppeteer = require("puppeteer");
+var puppeteer = require("puppeteer-core");
+const chromium = require("chrome-aws-lambda")
 var handlebars = require("handlebars");
 const { validationResult } = require("express-validator");
 var invoiceFilter = require("./invoiceFilter");
@@ -468,8 +469,9 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
 
     console.log(2);
     browser = await puppeteer.launch({
-      args: ["--no-sandbox"],
-      headless: true,
+      args: chromium.args,
+      executablePath: await chromium.executablePath,
+      headless: false, // Change to true for headless mode in production
     });
     console.log(3);
     const page = await browser.newPage();
@@ -478,7 +480,7 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     await page.goto(`data:text/html;charset=UTF-8,${finalHtml}`, {
       waitUntil: "networkidle0",
     });
-    
+
     console.log(5);
     // Create PDF with specified options
     const pdf = await page.pdf(options);
