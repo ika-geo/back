@@ -474,21 +474,14 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     //   headless: true,
     // });
 
-    // browser = await chromium.puppeteer.launch({
-    //   args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-    //   defaultViewport: chromium.defaultViewport,
-    //   executablePath: await chromium.executablePath,
-    //   headless: false,
-    //   ignoreHTTPSErrors: true,
-    // })
-
-    browser = await puppeteerCore.launch({
+    browser = await chromium.puppeteer.launch({
       args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
-      headless: true,
+      headless: false,
       ignoreHTTPSErrors: true,
-    });
+    })
+
 
     console.log(3);
     const page = await browser.newPage();

@@ -13,7 +13,6 @@
     "aws-sdk": "^2.1502.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
-    "chrome-aws-lambda": "^10.1.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
@@ -35,6 +34,7 @@
     "puppeteer-core": "^10.1.0"
   },
   "devDependencies": {
+    "chrome-aws-lambda": "^10.1.0",
     "eslint": "^7.30.0",
     "eslint-plugin-prettier": "^3.4.0",
     "handlebars": "^4.5.0",
