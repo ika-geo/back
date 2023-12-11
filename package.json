@@ -30,7 +30,6 @@
     "node-cron": "^3.0.1",
     "nodemailer": "^4.7.0",
     "pug": "2.0.0-beta11",
-    "puppeteer": "^21.6.0",
     "puppeteer-core": "^10.1.0"
   },
   "devDependencies": {
@@ -38,6 +37,7 @@
     "eslint": "^7.30.0",
     "eslint-plugin-prettier": "^3.4.0",
     "handlebars": "^4.5.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "puppeteer": "^21.6.0"
   }
 }
