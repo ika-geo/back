@@ -483,14 +483,14 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     //   ignoreHTTPSErrors: true,
     // })
 
-    browser = await playwright.chromium.launch({
+    browser = await chromium.puppeteer.launch({
       args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
       headless: true,
       ignoreHTTPSErrors: true,
-    })
-
+      ignoreDefaultArgs: ['--disable-extensions'],
+    });
 
 
     console.log(3);
