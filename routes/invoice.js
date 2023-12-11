@@ -478,7 +478,7 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
       args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
-      headless: true,
+      headless: false,
       ignoreHTTPSErrors: true,
     })
     console.log(3);
