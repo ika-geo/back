@@ -476,7 +476,7 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
 
     browser = await puppeteerCore.launch({
       args: chromium.args,
-      executablePath: await chromium.executablePath(),
+      executablePath: await chromium.executablePath,
       headless: false
     });
     console.log(3);
