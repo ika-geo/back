@@ -10,6 +10,7 @@ var path = require("path");
 var fs = require("fs");
 var puppeteer = require("puppeteer");
 var puppeteerCore = require("puppeteer-core");
+const playwright = require('playwright-core');
 const chromium = require("chrome-aws-lambda");
 var handlebars = require("handlebars");
 const { validationResult } = require("express-validator");
@@ -474,11 +475,19 @@ router.post("/", upload.single("image"), Invoice_Validator(), async (req, res) =
     //   headless: true,
     // });
 
-    browser = await chromium.puppeteer.launch({
+    // browser = await chromium.puppeteer.launch({
+    //   args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+    //   defaultViewport: chromium.defaultViewport,
+    //   executablePath: await chromium.executablePath,
+    //   headless: false,
+    //   ignoreHTTPSErrors: true,
+    // })
+
+    browser = await playwright.launch({
       args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
-      headless: false,
+      headless: true,
       ignoreHTTPSErrors: true,
     })
 
